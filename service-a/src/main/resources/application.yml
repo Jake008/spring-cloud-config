@@ -1,0 +1,31 @@
+server:
+  # ����˿ں�
+  port: 8085
+spring:
+  application:
+    # �������� - ����֮��ʹ�����ƽ���ͨѶ
+    name: service-objcat-a
+eureka:
+  client:
+    service-url:
+      # ��дע�����ķ�������ַ
+      defaultZone: http://localhost:8081/eureka
+    # �Ƿ���Ҫ���Լ�ע�ᵽע������
+    register-with-eureka: true
+    # �Ƿ���Ҫ����������Ϣ
+    fetch-registry: true
+  instance:
+    # ʹ��ip��ַע�ᵽע������
+    prefer-ip-address: true
+    # ע�������б�����ʾ��״̬����
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+      circuitBreaker:
+        requestVolumeThreshold: 5
+#hystrix配置：表示10秒内5个请求全部失败，则熔断。默认是20个

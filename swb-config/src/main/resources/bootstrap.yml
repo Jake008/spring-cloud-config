@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  application:
+     name: swb-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/luguge/spring-cloud-config.git
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka

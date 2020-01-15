@@ -1,0 +1,35 @@
+server:
+  # ����˿ں�
+  port: 8086
+spring:
+  application:
+    # �������� - ����֮��ʹ�����ƽ���ͨѶ
+    name: service-objcat-b
+eureka:
+  client:
+    service-url:
+      # ��дע�����ķ�������ַ
+      defaultZone: http://localhost:8081/eureka
+    # �Ƿ���Ҫ���Լ�ע�ᵽע������
+    register-with-eureka: true
+    # �Ƿ���Ҫ����������Ϣ
+    fetch-registry: true
+  instance:
+    # ʹ��ip��ַע�ᵽע������
+    prefer-ip-address: true
+    # ע�������б�����ʾ��״̬����
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    #lease-renewal-interval-in-seconds: 1 #eureka客户端需要多久发送心跳给eureka服务器，表明他还活着，默认为30s
+    #lease-expiration-duration-in-seconds: 3 #eureka服务器在接收到实例的最后一次发出的心跳后，需要等待多久才可以将此实例删除，默认为90s
+ribbon:
+  #�������ӳ�ʱʱ��
+  ReadTimeout: 5000
+  #config timeout
+  ConnectTimeout: 500
+  #这个配置的含义是忽略hystrix的超时时间 因为我们服务器配置延时5秒 hystrix默认就执行了fallback
+hystrix: #默认超时时间是1s
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
